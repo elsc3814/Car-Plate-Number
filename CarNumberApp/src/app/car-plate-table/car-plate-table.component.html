@@ -1,0 +1,43 @@
+<div class="mat-elevation-z8">
+  <a routerLink="/add"><button mat-raised-button color="primary">Add new car number</button></a>
+
+  <br>
+
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input name="search">
+  </mat-form-field>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50]">
+  </mat-paginator>
+
+  <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
+    <!-- Id Column -->
+    <ng-container matColumnDef="carNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Car number plate</th>
+      <td mat-cell *matCellDef="let row">{{row.carNumber}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner name</th>
+      <td mat-cell *matCellDef="let row">{{row.owner}}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <a [routerLink]="['/edit/', row.id]"><mat-icon svgIcon="edit" aria-hidden="false"></mat-icon></a>
+        <mat-icon svgIcon="delete" aria-hidden="false" (click) = "deleteCarNumberPlate(row)"></mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

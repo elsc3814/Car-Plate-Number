@@ -1,0 +1,24 @@
+<form class="car-number-plate-form" [formGroup]="carPlateForm">
+    <mat-form-field class="car-number-plate-form-full-width">
+      <mat-label>Car Plate Number</mat-label>
+      <input matInput placeholder="AAA111" formControlName="carNumber" name="carNumber">
+      <mat-error *ngIf="carPlateForm.controls['carNumber'].hasError('required')">
+        Car number is required field
+      </mat-error>
+      <mat-error *ngIf="carPlateForm.controls['carNumber'].hasError('carNumber') && !carPlateForm.controls['carNumber'].hasError('required')">
+        Please enter a valid car number
+      </mat-error>
+      <mat-error *ngIf="carPlateForm.controls['carNumber'].hasError('unique') && !carPlateForm.controls['carNumber'].hasError('required')">
+        Car number is not unique
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="car-number-plate-form-full-width">
+        <mat-label>Owner Name</mat-label>
+        <input matInput placeholder="Bob Red" formControlName="owner" name="owner">
+        <mat-error *ngIf="carPlateForm.controls['owner'].hasError('required')">
+            Owner name must contain at least one character
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="warn" name="cancel" (click) = "cancel()">Cancel</button>
+      <button mat-raised-button color="primary" name="submit" (click) = "onSubmit()">Save</button>
+  </form>
