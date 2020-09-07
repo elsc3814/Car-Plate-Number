@@ -39,6 +39,10 @@ Express server should be running.
 
 ## Integration tests
 
+### Preparation 
+
+`npm install` that will install all required dependencies (including Chrome driver).
+
 ### Run integration tests
 
 `npm run test` that will start Selenium tests.
