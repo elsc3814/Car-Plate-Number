@@ -20,7 +20,6 @@ export class AddCarPlateComponent implements OnInit {
   carPlateForm = new FormGroup({
     carNumber: new FormControl('', [
       Validators.required,
-      // this.carNumberValidator
       CarNumberPlateValidators.validCarNumber
     ], [
       this.availability.bind(this)

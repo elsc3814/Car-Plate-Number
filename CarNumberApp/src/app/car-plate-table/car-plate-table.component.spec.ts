@@ -5,6 +5,19 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
 import { CarPlateTableComponent } from './car-plate-table.component';
+import { CarNumberPlateService } from '../car-number-plate.service';
+import { Observable, of } from 'rxjs';
+import { CarPlateNumber } from 'src/models/car-plate-number';
+
+class FakeCarNumberPlateService {
+  getAllCarNumbers(id: number): Observable<CarPlateNumber[]> {
+    return of([{
+      carNumber: 'AAA111',
+      owner: 'TEST',
+      id: 5
+    }]);
+  }
+}
 
 describe('CarPlateTableComponent', () => {
   let component: CarPlateTableComponent;
@@ -18,6 +31,9 @@ describe('CarPlateTableComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
+      ],
+      providers: [
+        { provide: CarNumberPlateService, useValue: new FakeCarNumberPlateService() }
       ]
     }).compileComponents();
   }));

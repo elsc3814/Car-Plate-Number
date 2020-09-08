@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddCarPlateComponent } from './add-car-plate.component';
+import { CarNumberPlateService } from '../car-number-plate.service';
 
 describe('AddCarPlateComponentComponent', () => {
   let component: AddCarPlateComponent;
@@ -8,7 +9,10 @@ describe('AddCarPlateComponentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCarPlateComponent ]
+      declarations: [ AddCarPlateComponent ],
+      providers: [
+        { provide: CarNumberPlateService, useValue: {} }
+      ]
     })
     .compileComponents();
   }));

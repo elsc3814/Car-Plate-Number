@@ -65,7 +65,7 @@ export class EditCarPlateComponent implements OnInit {
     }
   }
 
-  private availability(control: AbstractControl): Observable<ValidationErrors | null> {
+  availability(control: AbstractControl): Observable<ValidationErrors | null> {
     if (this.initialCarNumber === control.value) {
       return of(null);
     }
