@@ -1,4 +1,5 @@
-<form class="car-number-plate-form" [formGroup]="carPlateForm">
+<div style="display: flex; justify-content: center;">
+  <form class="car-number-plate-form" [formGroup]="carPlateForm">
     <mat-form-field class="car-number-plate-form-full-width">
       <mat-label>Car Plate Number</mat-label>
       <input matInput placeholder="AAA111" formControlName="carNumber" name="carNumber">
@@ -20,5 +21,6 @@
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="warn" name="cancel" (click) = "cancel()">Cancel</button>
-      <button mat-raised-button color="primary" name="submit" (click) = "onSubmit()">Save</button>
+      <button mat-raised-button color="primary" style="margin-left: 10px;" name="submit" (click) = "onSubmit()">Save</button>
   </form>
+</div>
