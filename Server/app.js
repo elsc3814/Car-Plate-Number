@@ -10,6 +10,7 @@ const sequelize = new Sequelize('sqlite::memory:');
 
 const statusCodes = {
   noContent: 204,
+  badRequest: 400,
   notFound: 404,
 }
 
@@ -17,7 +18,21 @@ class CarPlateNumber extends Model { }
 CarPlateNumber.init({
   carNumber: DataTypes.STRING,
   owner: DataTypes.STRING
-}, { sequelize, modelName: 'carPlate', createdAt: false, updatedAt: false });
+}, {
+  sequelize,
+  modelName: 'carPlate',
+  createdAt: false,
+  updatedAt: false,
+  indexes: [{
+    unique: true,
+    fields: ['carNumber']
+  }]
+});
+
+function isValidCarNumber(carNumber) {
+  const regex = new RegExp('^[A-Z]{3}[0-9]{3}$');
+  return regex.test(carNumber);
+}
 
 (async () => {
   await sequelize.sync();
@@ -56,6 +71,11 @@ app.get('/:id', async (req, res) => {
 })
 
 app.patch('/:id', async (req, res) => {
+  if (!isValidCarNumber(req.body.carNumber)) {
+    res.status(statusCodes.badRequest).send({ carNumber: "Invalid car plate number" });
+    return;
+  }
+
   let car = await CarPlateNumber.findOne({
     where: {
       id: req.params.id
@@ -75,6 +95,11 @@ app.patch('/:id', async (req, res) => {
 })
 
 app.post('', async (req, res) => {
+  if (!isValidCarNumber(req.body.carNumber)) {
+    res.status(statusCodes.badRequest).send({ carNumber: "Invalid car plate number" });
+    return;
+  }
+
   const car = await CarPlateNumber.create({
     carNumber: req.body.carNumber,
     owner: req.body.owner
